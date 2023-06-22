@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ScoreBoardTest {
 
@@ -30,5 +31,13 @@ class ScoreBoardTest {
         List<Match> matches = scoreBoard.getSummary();
         assertEquals(3, matches.get(0).getHomeScore());
         assertEquals(2, matches.get(0).getAwayScore());
+    }
+
+    @Test
+    public void testFinishMatch() {
+        scoreBoard.startMatch("Team A", "Team B");
+        scoreBoard.finishMatch("Team A", "Team B");
+        List<Match> matches = scoreBoard.getSummary();
+        assertTrue(matches.isEmpty());
     }
 }

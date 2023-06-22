@@ -18,7 +18,9 @@ public class ScoreBoard {
     public void updateScore(String homeTeam, String awayTeam, int homeScore, int awayScore){
         findMatch(homeTeam, awayTeam).ifPresent(m -> m.setScore(homeScore, awayScore));
     }
-    public void finishMatch(String homeTeam, String awayTeam) {}
+    public void finishMatch(String homeTeam, String awayTeam) {
+        findMatch(homeTeam, awayTeam).ifPresent(m -> matches.remove(m));
+    }
 
     public List<Match> getSummary(){
         return matches;
