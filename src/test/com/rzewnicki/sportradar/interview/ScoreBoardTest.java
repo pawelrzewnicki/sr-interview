@@ -41,6 +41,14 @@ class ScoreBoardTest {
     }
 
     @Test
+    public void testUpdateScoreForNegativeScore() {
+        scoreBoard.startMatch("Team A", "Team B");
+        assertThrows(IllegalArgumentException.class, () -> {
+            scoreBoard.updateScore("Team A", "Team B", -2, 1);
+        });
+    }
+
+    @Test
     public void testFinishMatch() {
         scoreBoard.startMatch("Team A", "Team B");
         scoreBoard.finishMatch("Team A", "Team B");

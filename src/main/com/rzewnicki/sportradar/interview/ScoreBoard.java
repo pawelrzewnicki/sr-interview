@@ -22,6 +22,10 @@ public class ScoreBoard {
     }
 
     public void updateScore(String homeTeam, String awayTeam, int homeScore, int awayScore) {
+        if(homeScore < 0 || awayScore < 0){
+            throw new IllegalArgumentException("Score must be positive!");
+        }
+
         findMatch(homeTeam, awayTeam)
                 .orElseThrow(() -> new IllegalArgumentException("Match not found!"))
                 .setScore(homeScore, awayScore);
