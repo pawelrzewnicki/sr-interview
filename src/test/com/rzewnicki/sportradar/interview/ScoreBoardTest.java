@@ -5,8 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ScoreBoardTest {
 
@@ -52,5 +51,19 @@ class ScoreBoardTest {
         assertEquals(2, matches.size());
         assertEquals("Team C", matches.get(0).getHomeTeam());
         assertEquals("Team A", matches.get(1).getHomeTeam());
+    }
+
+    @Test
+    public void testUpdateScoreForNonExistentMatch() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            scoreBoard.updateScore("Team A", "Team B", 2, 1);
+        });
+    }
+
+    @Test
+    public void testFinishNonExistentMatch() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            scoreBoard.finishMatch("Team A", "Team B");
+        });
     }
 }

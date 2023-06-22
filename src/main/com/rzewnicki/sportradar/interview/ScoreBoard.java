@@ -9,29 +9,35 @@ import java.util.stream.Collectors;
 public class ScoreBoard {
     private List<Match> matches;
 
-    public ScoreBoard(){
+    public ScoreBoard() {
         this.matches = new ArrayList<>();
     }
 
-    public void startMatch(String homeTeam, String awayTeam){
+    public void startMatch(String homeTeam, String awayTeam) {
         this.matches.add(new Match(homeTeam, awayTeam));
     }
 
-    public void updateScore(String homeTeam, String awayTeam, int homeScore, int awayScore){
-        findMatch(homeTeam, awayTeam).ifPresent(m -> m.setScore(homeScore, awayScore));
-    }
-    public void finishMatch(String homeTeam, String awayTeam) {
-        findMatch(homeTeam, awayTeam).ifPresent(m -> matches.remove(m));
+    public void updateScore(String homeTeam, String awayTeam, int homeScore, int awayScore) {
+        findMatch(homeTeam, awayTeam)
+                .orElseThrow(() -> new IllegalArgumentException("Match not found!"))
+                .setScore(homeScore, awayScore);
     }
 
-    public List<Match> getSummary(){
+    public void finishMatch(String homeTeam, String awayTeam) {
+        Match match = findMatch(homeTeam, awayTeam)
+                .orElseThrow(() -> new IllegalArgumentException("Match not found!"));
+
+        matches.remove(match);
+    }
+
+    public List<Match> getSummary() {
         return matches.stream()
                 .sorted(Comparator.comparingInt(Match::getTotalScore).reversed())
                 .collect(Collectors.toList());
     }
 
-    private Optional<Match> findMatch(String homeTeam, String awayTeam){
-        return  matches.stream()
+    private Optional<Match> findMatch(String homeTeam, String awayTeam) {
+        return matches.stream()
                 .filter(m -> m.getHomeTeam().equals(homeTeam) && m.getAwayTeam().equals(awayTeam))
                 .findFirst();
     }
