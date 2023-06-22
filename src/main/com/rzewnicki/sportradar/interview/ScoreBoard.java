@@ -14,6 +14,10 @@ public class ScoreBoard {
     }
 
     public void startMatch(String homeTeam, String awayTeam) {
+        if(findMatch(homeTeam, awayTeam).isPresent()){
+            throw new IllegalArgumentException("Match is already started!");
+        }
+
         this.matches.add(new Match(homeTeam, awayTeam));
     }
 

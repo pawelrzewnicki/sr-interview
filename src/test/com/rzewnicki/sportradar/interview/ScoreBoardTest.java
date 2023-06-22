@@ -24,6 +24,14 @@ class ScoreBoardTest {
     }
 
     @Test
+    public void testStartMatchForAlreadyStartedMatch() {
+        scoreBoard.startMatch("Team A", "Team B");
+        assertThrows(IllegalArgumentException.class, () -> {
+            scoreBoard.startMatch("Team A", "Team B");
+        });
+    }
+
+    @Test
     public void testUpdateScore() {
         scoreBoard.startMatch("Team A", "Team B");
         scoreBoard.updateScore("Team A", "Team B", 3, 2);
