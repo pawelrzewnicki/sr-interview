@@ -1,8 +1,10 @@
 package com.rzewnicki.sportradar.interview;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class ScoreBoard {
     private List<Match> matches;
@@ -23,10 +25,14 @@ public class ScoreBoard {
     }
 
     public List<Match> getSummary(){
-        return matches;
+        return matches.stream()
+                .sorted(Comparator.comparingInt(Match::getTotalScore).reversed())
+                .collect(Collectors.toList());
     }
 
     private Optional<Match> findMatch(String homeTeam, String awayTeam){
-        return  matches.stream().filter(m -> m.getHomeTeam().equals(homeTeam) && m.getAwayTeam().equals(awayTeam)).findFirst();
+        return  matches.stream()
+                .filter(m -> m.getHomeTeam().equals(homeTeam) && m.getAwayTeam().equals(awayTeam))
+                .findFirst();
     }
 }

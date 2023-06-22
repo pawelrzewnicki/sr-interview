@@ -19,7 +19,7 @@ class ScoreBoardTest {
 
     @Test
     public void testStartMatch() {
-        scoreBoard.startMatch("Team 1", "Team 2");
+        scoreBoard.startMatch("Team A", "Team B");
         List<Match> matches = scoreBoard.getSummary();
         assertEquals(1, matches.size());
     }
@@ -39,5 +39,18 @@ class ScoreBoardTest {
         scoreBoard.finishMatch("Team A", "Team B");
         List<Match> matches = scoreBoard.getSummary();
         assertTrue(matches.isEmpty());
+    }
+
+    @Test
+    public void testGetSummary() {
+        scoreBoard.startMatch("Team A", "Team B");
+        scoreBoard.startMatch("Team C", "Team D");
+        scoreBoard.updateScore("Team A", "Team B", 2, 2);
+        scoreBoard.updateScore("Team C", "Team D", 3, 2);
+
+        List<Match> matches = scoreBoard.getSummary();
+        assertEquals(2, matches.size());
+        assertEquals("Team C", matches.get(0).getHomeTeam());
+        assertEquals("Team A", matches.get(1).getHomeTeam());
     }
 }
