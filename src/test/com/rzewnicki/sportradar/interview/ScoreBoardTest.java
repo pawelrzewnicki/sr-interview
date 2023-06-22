@@ -26,16 +26,12 @@ class ScoreBoardTest {
     @Test
     public void testStartMatchForAlreadyStartedMatch() {
         scoreBoard.startMatch("Team A", "Team B");
-        assertThrows(IllegalArgumentException.class, () -> {
-            scoreBoard.startMatch("Team A", "Team B");
-        });
+        assertThrows(IllegalArgumentException.class, () -> scoreBoard.startMatch("Team A", "Team B"));
     }
 
     @Test
     public void testStartMatchForNullTeam() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            scoreBoard.startMatch(null, "Team B");
-        });
+        assertThrows(IllegalArgumentException.class, () -> scoreBoard.startMatch(null, "Team B"));
     }
 
     @Test
@@ -50,9 +46,7 @@ class ScoreBoardTest {
     @Test
     public void testUpdateScoreForNegativeScore() {
         scoreBoard.startMatch("Team A", "Team B");
-        assertThrows(IllegalArgumentException.class, () -> {
-            scoreBoard.updateScore("Team A", "Team B", -2, 1);
-        });
+        assertThrows(IllegalArgumentException.class, () -> scoreBoard.updateScore("Team A", "Team B", -2, 1));
     }
 
     @Test
@@ -78,15 +72,11 @@ class ScoreBoardTest {
 
     @Test
     public void testUpdateScoreForNonExistentMatch() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            scoreBoard.updateScore("Team A", "Team B", 2, 1);
-        });
+        assertThrows(IllegalArgumentException.class, () -> scoreBoard.updateScore("Team A", "Team B", 2, 1));
     }
 
     @Test
     public void testFinishNonExistentMatch() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            scoreBoard.finishMatch("Team A", "Team B");
-        });
+        assertThrows(IllegalArgumentException.class, () -> scoreBoard.finishMatch("Team A", "Team B"));
     }
 }
