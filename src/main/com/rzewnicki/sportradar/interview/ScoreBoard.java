@@ -18,6 +18,10 @@ public class ScoreBoard {
             throw new IllegalArgumentException("Match is already started!");
         }
 
+        if(homeTeam == null || homeTeam.isEmpty() || awayTeam == null || awayTeam.isEmpty()) {
+            throw new IllegalArgumentException("Team names must not be null or empty!");
+        }
+
         this.matches.add(new Match(homeTeam, awayTeam));
     }
 
