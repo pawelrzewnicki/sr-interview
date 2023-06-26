@@ -1,5 +1,6 @@
 package com.rzewnicki.sportradar.interview;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -13,7 +14,7 @@ public class ScoreBoard {
         this.matches = new ArrayList<>();
     }
 
-    public void startMatch(String homeTeam, String awayTeam) {
+    public void startMatch(String homeTeam, String awayTeam, LocalDateTime startTime) {
         if(findMatch(homeTeam, awayTeam).isPresent()){
             throw new IllegalArgumentException("Match is already started!");
         }
@@ -22,7 +23,7 @@ public class ScoreBoard {
             throw new IllegalArgumentException("Team names must not be null or empty!");
         }
 
-        this.matches.add(new Match(homeTeam, awayTeam));
+        this.matches.add(new Match(homeTeam, awayTeam, startTime));
     }
 
     public void updateScore(String homeTeam, String awayTeam, int homeScore, int awayScore) {
@@ -44,7 +45,7 @@ public class ScoreBoard {
 
     public List<Match> getSummary() {
         return matches.stream()
-                .sorted(Comparator.comparingInt(Match::getTotalScore).reversed())
+                .sorted(Comparator.comparingInt(Match::getTotalScore).thenComparing(Match::getStartTime).reversed())
                 .collect(Collectors.toList());
     }
 

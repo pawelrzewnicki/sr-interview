@@ -1,5 +1,7 @@
 package com.rzewnicki.sportradar.interview;
 
+import java.time.LocalDateTime;
+
 public class Match {
 
     private final String homeTeam;
@@ -8,9 +10,12 @@ public class Match {
     private int homeScore;
     private int awayScore;
 
-    public Match(String homeTeam, String awayTeam) {
+    private final LocalDateTime startTime;
+
+    public Match(String homeTeam, String awayTeam,LocalDateTime startTime) {
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
+        this.startTime = startTime;
     }
 
     void setScore(int homeScore, int awayScore){
@@ -37,5 +42,10 @@ public class Match {
     int getTotalScore(){
         return homeScore + awayScore;
     }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
 
 }
