@@ -1,9 +1,9 @@
 package com.rzewnicki.sportradar.interview;
 
-class Match {
+public class Match {
 
-    private String homeTeam;
-    private String awayTeam;
+    private final String homeTeam;
+    private final String awayTeam;
 
     private int homeScore;
     private int awayScore;
@@ -13,7 +13,7 @@ class Match {
         this.awayTeam = awayTeam;
     }
 
-    public void setScore(int homeScore, int awayScore){
+    void setScore(int homeScore, int awayScore){
         this.homeScore = homeScore;
         this.awayScore = awayScore;
     }
@@ -34,7 +34,7 @@ class Match {
         return awayScore;
     }
 
-    public int getTotalScore(){
+    int getTotalScore(){
         return homeScore + awayScore;
     }
 
